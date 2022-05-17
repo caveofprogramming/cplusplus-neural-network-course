@@ -1,12 +1,12 @@
+#include <functional>
 #include <iostream>
 #include <vector>
-#include <functional>
 
 void neuronDemo();
 void gradientDemo();
 
 int main() {
-  gradientDemo();
+  neuronDemo();
   return 0;
 }
 
@@ -23,7 +23,7 @@ double gradient(double &x, std::function<double()> func) {
 
   x = originalValue;
 
-  double rate = (y2 - y1)/inc;
+  double rate = (y2 - y1) / inc;
 
   return rate;
 }
@@ -31,10 +31,8 @@ double gradient(double &x, std::function<double()> func) {
 void gradientDemo() {
   double x = -6;
 
-  auto func = [&x]{
-    double y = 0.5 * x;
-    y *= y;
-    y -= 4;
+  auto func = [&x] {
+    double y = 3.7 * x + 4;
 
     return y;
   };
@@ -64,4 +62,16 @@ void neuronDemo() {
   double bias = 0;
 
   std::cout << singleNeuron(inputs, weights, bias) << std::endl;
+
+  for (int i = 0; i < inputs.size(); ++i) {
+
+    // clang-format off
+    std::cout << "rate wrt input " << i << ": " << 
+      gradient(inputs[i], [&] 
+      {
+        return singleNeuron(inputs, weights, bias);
+      }) 
+      << std::endl;
+    // clang-format off
+  }
 }
