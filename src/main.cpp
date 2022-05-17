@@ -71,7 +71,25 @@ void neuronDemo() {
       {
         return singleNeuron(inputs, weights, bias);
       }) 
-      << std::endl;
+    << std::endl;
+    // clang-format off
+
+    // clang-format off
+    std::cout << "rate wrt weight " << i << ": " << 
+      gradient(weights[i], [&] 
+      {
+        return singleNeuron(inputs, weights, bias);
+      }) 
+    << std::endl;
     // clang-format off
   }
+
+  // clang-format off
+  std::cout << "rate wrt bias: " << 
+    gradient(bias, [&] 
+    {
+      return singleNeuron(inputs, weights, bias);
+    }) 
+  << std::endl;
+    // clang-format off
 }
