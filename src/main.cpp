@@ -11,13 +11,27 @@ int main() {
 }
 
 double gradient(double &x, std::function<double()> func) {
-  return 0.0;
+
+  const double inc = 0.0001;
+  const double originalValue = x;
+
+  double y1 = func();
+
+  x += inc;
+
+  double y2 = func();
+
+  x = originalValue;
+
+  double rate = (y2 - y1)/inc;
+
+  return rate;
 }
 
 void gradientDemo() {
-  double x = 2.0;
+  double x = -6;
 
-  auto func = [x]{
+  auto func = [&x]{
     double y = 0.5 * x;
     y *= y;
     y -= 4;
