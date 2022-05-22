@@ -128,5 +128,5 @@ void backpropDemo()
     double output2 = singleNeuron({output1}, {weight2}, bias2);
 
     std::cout << "Error: " << error << std::endl;
-    //std::cout << "Calculated Error: " << input1 * (2 * (output2 - expected)) << std::endl;
+    std::cout << "Calculated Error: " << input1 * weight2 * (2 * (output2 - expected)) << std::endl;
 }
