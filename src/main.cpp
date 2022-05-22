@@ -77,19 +77,28 @@ void neuronDemo()
     const double expected = 0.9;
     const double learningRate = 0.01;
 
-    for (int i = 0; i < inputs.size(); ++i)
+    for (int epoch = 0; epoch < 1000; epoch++)
     {
+        for (int i = 0; i < inputs.size(); ++i)
+        {
+            auto func = [&]
+            { return loss(singleNeuron(inputs, weights, bias), expected); };
 
-        double error = gradient(weights[i], [&]
-                                { return loss(singleNeuron(inputs, weights, bias), expected); });
+            double error = gradient(weights[i], func);
 
-        weights[i] -= learningRate * error;                       
+            weights[i] -= learningRate * error;
+        }
+
+        auto func = [&]
+        { return loss(singleNeuron(inputs, weights, bias), expected); };
+
+        double error = gradient(bias, func);
+
+        bias -= learningRate * error;
+
+        double output = singleNeuron(inputs, weights, bias);
+        double lossValue = loss(output, expected);
+
+        std::cout << epoch << ": " << epoch << "; output: " << output << ": loss: " << lossValue << std::endl;
     }
-
-    double error = gradient(bias, [&]
-                            { return loss(singleNeuron(inputs, weights, bias), expected); });
-
-    bias -= learningRate * error;
-
-    std::cout << singleNeuron(inputs, weights, bias) << std::endl;
 }
