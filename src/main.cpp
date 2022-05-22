@@ -106,8 +106,8 @@ void neuronDemo()
 
 void backpropDemo()
 {
-    const double expected = 2.7;
-    double output = 1.8;
+    const double expected = 3.54;
+    double output = -0.78;
 
     auto network = [&]{
         return loss(output, expected);
@@ -118,4 +118,5 @@ void backpropDemo()
     });
 
     std::cout << "Error: " << error << std::endl;
+    std::cout << "Error: " << 2 * (output - expected) << std::endl;
 }
