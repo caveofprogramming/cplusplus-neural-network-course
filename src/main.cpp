@@ -108,21 +108,25 @@ void backpropDemo()
 {
     const double expected = 3.54;
 
-    std::vector<double> inputs{0.2, -0.1, 0.4};
-    std::vector<double> weights{0.3, 0.2, -0.3};
-    double bias = 0;
+    double input1 = 2.34;
+    double weight1 = 0.87;
+    double weight2 = 0.23;
+    double bias1 = 0.1;
+    double bias2 = 0.2;
 
-    auto network = [&]{
-        double output = singleNeuron(inputs, weights, bias);
-        return loss(output, expected);
+    auto network = [&]
+    {
+        double output1 = singleNeuron({input1}, {weight1}, bias1);
+        double output2 = singleNeuron({output1}, {weight2}, bias2);
+        return loss(output2, expected);
     };
 
-    double error = gradient(weights[0], [&]{
-        return network();
-    });
+    double error = gradient(weight1, [&]
+                            { return network(); });
 
-    double actual = singleNeuron(inputs, weights, bias);
+    double output1 = singleNeuron({input1}, {weight1}, bias1);
+    double output2 = singleNeuron({output1}, {weight2}, bias2);
 
     std::cout << "Error: " << error << std::endl;
-    std::cout << "Calculated Error: " << inputs[0] * (2 * (actual - expected)) << std::endl;
+    //std::cout << "Calculated Error: " << input1 * (2 * (output2 - expected)) << std::endl;
 }
