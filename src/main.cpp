@@ -5,10 +5,11 @@
 
 void neuronDemo();
 void gradientDemo();
+void backpropDemo();
 
 int main()
 {
-    neuronDemo();
+    backpropDemo();
     return 0;
 }
 
@@ -101,4 +102,20 @@ void neuronDemo()
 
         std::cout << epoch << ": " << epoch << "; output: " << output << ": loss: " << lossValue << std::endl;
     }
+}
+
+void backpropDemo()
+{
+    const double expected = 2.7;
+    double output = 1.8;
+
+    auto network = [&]{
+        return loss(output, expected);
+    };
+
+    double error = gradient(output, [&]{
+        return network();
+    });
+
+    std::cout << "Error: " << error << std::endl;
 }
