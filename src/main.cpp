@@ -12,7 +12,7 @@ int main()
     return 0;
 }
 
-double loss(double actual, double expected) 
+double loss(double actual, double expected)
 {
     return std::pow(actual - expected, 2);
 }
@@ -68,41 +68,28 @@ double singleNeuron(std::vector<double> inputs, std::vector<double> weights,
 
 void neuronDemo()
 {
-
     std::vector<double> inputs{0.2, -0.1, 0.4};
     std::vector<double> weights{0.3, 0.2, -0.3};
     double bias = 0;
 
     std::cout << singleNeuron(inputs, weights, bias) << std::endl;
 
+    const double expected = 0.9;
+    const double learningRate = 0.01;
+
     for (int i = 0; i < inputs.size(); ++i)
     {
 
-        // clang-format off
-    std::cout << "rate wrt input " << i << ": " << 
-      gradient(inputs[i], [&] 
-      {
-        return singleNeuron(inputs, weights, bias);
-      }) 
-    << std::endl;
-    // clang-format off
+        double error = gradient(weights[i], [&]
+                                { return loss(singleNeuron(inputs, weights, bias), expected); });
 
-    // clang-format off
-    std::cout << "rate wrt weight " << i << ": " << 
-      gradient(weights[i], [&] 
-      {
-        return singleNeuron(inputs, weights, bias);
-      }) 
-    << std::endl;
-    // clang-format off
-  }
+        weights[i] -= learningRate * error;                       
+    }
 
-  // clang-format off
-  std::cout << "rate wrt bias: " << 
-    gradient(bias, [&] 
-    {
-      return singleNeuron(inputs, weights, bias);
-    }) 
-  << std::endl;
-    // clang-format off
+    double error = gradient(bias, [&]
+                            { return loss(singleNeuron(inputs, weights, bias), expected); });
+
+    bias -= learningRate * error;
+
+    std::cout << singleNeuron(inputs, weights, bias) << std::endl;
 }
