@@ -21,6 +21,8 @@ int main()
 
     std::cout << m1 << std::endl;
 
+    std::cout << 2.5 * m1 << std::endl;
+
     return 0;
 }
 

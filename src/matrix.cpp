@@ -9,7 +9,7 @@ namespace cave
     {
         _v.resize(rows * cols);
 
-        for(int i = 0; i < _v.size(); ++i)
+        for (int i = 0; i < _v.size(); ++i)
         {
             _v[i] = init(i);
         }
@@ -19,9 +19,21 @@ namespace cave
      * Arithmetical operators
      */
 
+    Matrix operator*(double multiplier, const Matrix &m)
+    {
+        Matrix result(m._rows, m._cols);
+
+        for (int i = 0; i < m._v.size(); ++i)
+        {
+            result._v[i] = m._v[i] * multiplier;
+        }
+
+        return result;
+    }
+
     Matrix &operator-=(Matrix &m1, const Matrix &m2)
     {
-        if(m1._rows != m2._rows || m1._cols != m2._cols)
+        if (m1._rows != m2._rows || m1._cols != m2._cols)
         {
             std::stringstream ss;
             ss << "Cannot subtract matrices of different sizes.\n";
@@ -30,7 +42,7 @@ namespace cave
             throw std::logic_error(ss.str());
         }
 
-        for(int i = 0; i < m1._v.size(); ++i)
+        for (int i = 0; i < m1._v.size(); ++i)
         {
             m1._v[i] -= m2._v[i];
         }
@@ -40,7 +52,7 @@ namespace cave
 
     Matrix operator-(const Matrix &m1, const Matrix &m2)
     {
-        if(m1._rows != m2._rows || m1._cols != m2._cols)
+        if (m1._rows != m2._rows || m1._cols != m2._cols)
         {
             std::stringstream ss;
             ss << "Cannot subtract matrices of different sizes.\n";
@@ -51,7 +63,7 @@ namespace cave
 
         Matrix result(m1._rows, m2._cols);
 
-        for(int i = 0; i < m1._v.size(); ++i)
+        for (int i = 0; i < m1._v.size(); ++i)
         {
             result._v[i] = m1._v[i] - m2._v[i];
         }
@@ -61,7 +73,7 @@ namespace cave
 
     Matrix operator+(const Matrix &m1, const Matrix &m2)
     {
-        if(m1._rows != m2._rows || m1._cols != m2._cols)
+        if (m1._rows != m2._rows || m1._cols != m2._cols)
         {
             std::stringstream ss;
             ss << "Cannot add matrices of different sizes.\n";
@@ -72,7 +84,7 @@ namespace cave
 
         Matrix result(m1._rows, m2._cols);
 
-        for(int i = 0; i < m1._v.size(); ++i)
+        for (int i = 0; i < m1._v.size(); ++i)
         {
             result._v[i] = m1._v[i] + m2._v[i];
         }

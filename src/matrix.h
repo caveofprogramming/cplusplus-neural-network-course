@@ -39,5 +39,6 @@ namespace cave
         friend Matrix operator+(const Matrix &m1, const Matrix &m2);
         friend Matrix operator-(const Matrix &m1, const Matrix &m2);
         friend Matrix &operator-=(Matrix &m1, const Matrix &m2);
+        friend Matrix operator*(double multiplier, const Matrix &m);
     };
 }
