@@ -3,6 +3,16 @@
 
 namespace cave
 {
+    Matrix::Matrix(int rows, int cols, std::function<double(int)> init) : _rows(rows), _cols{cols}
+    {
+        _v.resize(rows * cols);
+
+        for(int i = 0; i < _v.size(); ++i)
+        {
+            _v[i] = init(i);
+        }
+    }
+
     std::ostream &operator<<(std::ostream &out, cave::Matrix m)
     {
         const int maxRows = 8;

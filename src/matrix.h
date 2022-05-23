@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <iostream>
+#include <functional>
 
 namespace cave
 {
@@ -16,13 +17,15 @@ namespace cave
         Matrix(int rows, int cols): _rows(rows), _cols{cols}
         {
             _v.resize(rows * cols);
-        }
+        };
 
         Matrix(int rows, int cols, std::vector<double> values): 
             _rows(rows), _cols{cols}, _v(values)
         {
             
-        }
+        };
+
+        Matrix(int rows, int cols, std::function<double(int)> init);
 
         friend std::ostream& operator<<(std::ostream &out, cave::Matrix m);
     };
