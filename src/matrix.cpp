@@ -1,6 +1,7 @@
 #include "matrix.h"
 #include <iomanip>
 #include <sstream>
+#include <stdexcept>
 
 namespace cave
 {
@@ -13,6 +14,33 @@ namespace cave
             _v[i] = init(i);
         }
     }
+
+    /*
+     * Arithmetical operators
+     */
+
+    Matrix operator+(const Matrix &m1, const Matrix &m2)
+    {
+        if(m1._rows != m2._rows || m1._cols != m2._cols)
+        {
+            std::stringstream ss;
+            ss << "Cannot add matrices of different size.\n";
+            ss << "Matrix 1: " << m1.str() << "\n";
+            ss << "Matrix 2: " << m2.str() << "\n";
+            throw std::logic_error(ss.str());
+        }
+
+        Matrix result(m1._rows, m2._cols);
+
+        for(int i = 0; i < m1._v.size(); ++i)
+        {
+            result._v[i] = m1._v[i] + m2._v[i];
+        }
+
+        return result;
+    }
+
+    /*********************************/
 
     std::string Matrix::str() const
     {

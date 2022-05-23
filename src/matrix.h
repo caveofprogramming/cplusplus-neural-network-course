@@ -31,5 +31,11 @@ namespace cave
         Matrix(int rows, int cols, std::function<double(int)> init);
 
         friend std::ostream& operator<<(std::ostream &out, cave::Matrix m);
+
+        /*
+         * Arithmetical operators
+         */
+
+        friend Matrix operator+(const Matrix &m1, const Matrix &m2);
     };
 }

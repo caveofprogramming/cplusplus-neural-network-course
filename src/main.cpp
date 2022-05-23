@@ -11,12 +11,12 @@ void backpropDemo();
 int main()
 {
     cave::Matrix m1(2, 4, [](int i){ return i; });
-    cave::Matrix m2(2, 2, [](int i){ return 2 * i - 2; });
+    cave::Matrix m2(2, 3, [](int i){ return 0.5 * i - 2; });
 
     std::cout << m1 << std::endl;
     std::cout << m2 << std::endl;
+    std::cout << (m1 + m2) << std::endl;
 
-    std::cout << m1.str() << std::endl;
     return 0;
 }
 
