@@ -1,5 +1,6 @@
 #include "matrix.h"
 #include <iomanip>
+#include <sstream>
 
 namespace cave
 {
@@ -11,6 +12,15 @@ namespace cave
         {
             _v[i] = init(i);
         }
+    }
+
+    std::string Matrix::str() const
+    {
+        std::stringstream ss;
+
+        ss << _rows << "x" << _cols;
+
+        return ss.str();
     }
 
     std::ostream &operator<<(std::ostream &out, cave::Matrix m)

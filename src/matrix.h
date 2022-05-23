@@ -3,6 +3,7 @@
 #include <vector>
 #include <iostream>
 #include <functional>
+#include <string>
 
 namespace cave
 {
@@ -24,6 +25,8 @@ namespace cave
         {
             
         };
+
+        std::string str() const;
 
         Matrix(int rows, int cols, std::function<double(int)> init);
 
