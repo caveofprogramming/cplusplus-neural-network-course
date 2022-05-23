@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include "matrix.h"
 
 void neuronDemo();
 void gradientDemo();
@@ -9,7 +10,7 @@ void backpropDemo();
 
 int main()
 {
-    backpropDemo();
+    cave::Matrix m1(2, 3);
     return 0;
 }
 
