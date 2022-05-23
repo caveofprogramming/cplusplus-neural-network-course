@@ -10,7 +10,7 @@ void backpropDemo();
 
 int main()
 {
-    cave::Matrix m1(400, 500);
+    cave::Matrix m1(2, 2, {1, 2, 3, 4});
 
     std::cout << m1 << std::endl;
     return 0;
