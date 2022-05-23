@@ -1,13 +1,42 @@
 #include "matrix.h"
+#include <iomanip>
 
 namespace cave
 {
-    std::ostream& operator<<(std::ostream &out, cave::Matrix m)
+    std::ostream &operator<<(std::ostream &out, cave::Matrix m)
     {
-        for(int row = 0; row < m._rows; ++row)
+        const int maxRows = 8;
+        const int maxCols = 8;
+
+        out << std::fixed;
+        out << std::showpos;
+
+        for (int row = 0; row < m._rows; ++row)
         {
-            for(int col = 0; col < m._cols; ++col)
+            if (row == maxRows)
             {
+                out << "...\n";
+            }
+
+            if (row >= maxRows)
+            {
+                continue;
+            }
+
+            for (int col = 0; col < m._cols; ++col)
+            {
+                if (col == maxCols)
+                {
+                    out << " ...";
+                }
+
+                if (col >= maxCols)
+                {
+                    continue;
+                }
+
+                out << std::setprecision(6);
+                out << std::setw(12);
                 out << m._v[row * m._cols + col];
             }
 
