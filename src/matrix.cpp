@@ -19,12 +19,52 @@ namespace cave
      * Arithmetical operators
      */
 
+    Matrix &operator-=(Matrix &m1, const Matrix &m2)
+    {
+        if(m1._rows != m2._rows || m1._cols != m2._cols)
+        {
+            std::stringstream ss;
+            ss << "Cannot subtract matrices of different sizes.\n";
+            ss << "Matrix 1: " << m1.str() << "\n";
+            ss << "Matrix 2: " << m2.str() << "\n";
+            throw std::logic_error(ss.str());
+        }
+
+        for(int i = 0; i < m1._v.size(); ++i)
+        {
+            m1._v[i] -= m2._v[i];
+        }
+
+        return m1;
+    }
+
+    Matrix operator-(const Matrix &m1, const Matrix &m2)
+    {
+        if(m1._rows != m2._rows || m1._cols != m2._cols)
+        {
+            std::stringstream ss;
+            ss << "Cannot subtract matrices of different sizes.\n";
+            ss << "Matrix 1: " << m1.str() << "\n";
+            ss << "Matrix 2: " << m2.str() << "\n";
+            throw std::logic_error(ss.str());
+        }
+
+        Matrix result(m1._rows, m2._cols);
+
+        for(int i = 0; i < m1._v.size(); ++i)
+        {
+            result._v[i] = m1._v[i] - m2._v[i];
+        }
+
+        return result;
+    }
+
     Matrix operator+(const Matrix &m1, const Matrix &m2)
     {
         if(m1._rows != m2._rows || m1._cols != m2._cols)
         {
             std::stringstream ss;
-            ss << "Cannot add matrices of different size.\n";
+            ss << "Cannot add matrices of different sizes.\n";
             ss << "Matrix 1: " << m1.str() << "\n";
             ss << "Matrix 2: " << m2.str() << "\n";
             throw std::logic_error(ss.str());
