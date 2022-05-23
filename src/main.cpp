@@ -11,6 +11,8 @@ void backpropDemo();
 int main()
 {
     cave::Matrix m1(2, 3);
+
+    std::cout << m1 << std::endl;
     return 0;
 }
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <iostream>
 
 namespace cave
 {
@@ -12,6 +13,10 @@ namespace cave
         std::vector<double> _v;
 
     public:
-        Matrix(int rows, int cols): _rows(rows), _cols{cols}{}
+        Matrix(int rows, int cols): _rows(rows), _cols{cols}{
+            _v.resize(rows * cols);
+        }
+
+        friend std::ostream& operator<<(std::ostream &out, cave::Matrix m);
     };
 }
