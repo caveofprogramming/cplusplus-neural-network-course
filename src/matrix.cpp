@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <sstream>
 #include <stdexcept>
+#include <iostream>
 
 namespace cave
 {
@@ -36,7 +37,10 @@ namespace cave
         {
             for(int col = 0; col < result._cols; ++col)
             {
-                result._v[row * result._cols + col] = row * 10 + col;
+                for(int n = 0; n < m1._cols; ++n)
+                {
+                    result._v[row * result._cols + col] += m2._v[col + n * m2._cols] * m1._v[row * m1._cols + n];
+                }
             }
         }
 
