@@ -19,6 +19,30 @@ namespace cave
      * Arithmetical operators
      */
 
+    Matrix operator*(const Matrix &m1, const Matrix &m2)
+    {
+        if (m1._cols != m2._rows)
+        {
+            std::stringstream ss;
+            ss << "Cannot multiply these matrices: incompatible sizes.\n";
+            ss << "Matrix 1: " << m1.str() << "\n";
+            ss << "Matrix 2: " << m2.str() << "\n";
+            throw std::logic_error(ss.str());
+        }
+
+        Matrix result(m1._rows, m2._cols);
+
+        for(int row = 0; row < result._rows; ++row)
+        {
+            for(int col = 0; col < result._cols; ++col)
+            {
+                result._v[row * result._cols + col] = row * 10 + col;
+            }
+        }
+
+        return result;
+    }
+
     Matrix operator*(double multiplier, const Matrix &m)
     {
         Matrix result(m._rows, m._cols);

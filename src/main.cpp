@@ -15,13 +15,8 @@ int main()
 
     std::cout << m1 << std::endl;
     std::cout << m2 << std::endl;
-    std::cout << (m1 - m2) << std::endl;
+    std::cout << (m1 * m2) << std::endl;
 
-    m1 -= m2;
-
-    std::cout << m1 << std::endl;
-
-    std::cout << 2.5 * m1 << std::endl;
 
     return 0;
 }

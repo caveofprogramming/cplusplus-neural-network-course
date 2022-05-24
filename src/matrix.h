@@ -15,27 +15,26 @@ namespace cave
         std::vector<double> _v;
 
     public:
-        Matrix(int rows, int cols): _rows(rows), _cols{cols}
+        Matrix(int rows, int cols) : _rows(rows), _cols{cols}
         {
             _v.resize(rows * cols);
         };
 
-        Matrix(int rows, int cols, std::vector<double> values): 
-            _rows(rows), _cols{cols}, _v(values)
-        {
-            
-        };
+        Matrix(int rows, int cols, std::vector<double> values) : _rows(rows), _cols{cols}, _v(values){
+
+                                                                                           };
 
         std::string str() const;
 
         Matrix(int rows, int cols, std::function<double(int)> init);
 
-        friend std::ostream& operator<<(std::ostream &out, cave::Matrix m);
+        friend std::ostream &operator<<(std::ostream &out, cave::Matrix m);
 
         /*
          * Arithmetical operators
          */
 
+        friend Matrix operator*(const Matrix &m1, const Matrix &m2);
         friend Matrix operator+(const Matrix &m1, const Matrix &m2);
         friend Matrix operator-(const Matrix &m1, const Matrix &m2);
         friend Matrix &operator-=(Matrix &m1, const Matrix &m2);
