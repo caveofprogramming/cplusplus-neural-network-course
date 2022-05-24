@@ -2,7 +2,6 @@
 #include <iomanip>
 #include <sstream>
 #include <stdexcept>
-#include <iostream>
 
 namespace cave
 {
