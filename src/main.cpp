@@ -13,7 +13,7 @@ int main()
     cave::Matrix m1(2, 3, [](int i){ return i + 1; });
     
     std::cout << m1 << std::endl;
-    std::cout << m1.transpose() << std::endl;
+    std::cout << m1.colSums() << std::endl;
 
 
     return 0;
