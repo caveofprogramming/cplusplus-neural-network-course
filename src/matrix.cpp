@@ -2,16 +2,33 @@
 #include <iomanip>
 #include <sstream>
 #include <stdexcept>
+#include <utility>
 
 namespace cave
 {
-    Matrix::Matrix(int rows, int cols, std::function<double(int)> init) : _rows(rows), _cols{cols}
+    Matrix::Matrix(int rows, int cols, std::function<double(int)> init) : _rows(rows), _cols(cols)
     {
         _v.resize(rows * cols);
 
         for (int i = 0; i < _v.size(); ++i)
         {
             _v[i] = init(i);
+        }
+    }
+
+    Matrix::Matrix(int rows, int cols, std::vector<double> values, bool byRowOrder) 
+        : _rows(rows), _cols(cols)
+    {
+        if(byRowOrder)
+        {
+            _v = values;
+        }
+        else
+        {
+            Matrix tmp(_cols, _rows);
+            tmp._v = values;
+            Matrix transposed = tmp.transpose();
+            _v = std::move(transposed._v);
         }
     }
 
@@ -218,7 +235,7 @@ namespace cave
         return ss.str();
     }
 
-    std::ostream &operator<<(std::ostream &out, cave::Matrix m)
+    std::ostream &operator<<(std::ostream &out, const cave::Matrix &m)
     {
         const int maxRows = 8;
         const int maxCols = 8;

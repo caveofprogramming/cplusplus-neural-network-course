@@ -15,20 +15,18 @@ namespace cave
         std::vector<double> _v;
 
     public:
-        Matrix(int rows, int cols) : _rows(rows), _cols{cols}
+        Matrix(int rows, int cols) : _rows(rows), _cols(cols)
         {
             _v.resize(rows * cols);
         };
 
-        Matrix(int rows, int cols, std::vector<double> values) : _rows(rows), _cols{cols}, _v(values){
-
-                                                                                           };
+        Matrix(int rows, int cols, std::vector<double> values, bool byRowOrder = true); 
 
         std::string str() const;
 
         Matrix(int rows, int cols, std::function<double(int)> init);
 
-        friend std::ostream &operator<<(std::ostream &out, cave::Matrix m);
+        friend std::ostream &operator<<(std::ostream &out, const cave::Matrix &m);
 
         Matrix transpose();
 
