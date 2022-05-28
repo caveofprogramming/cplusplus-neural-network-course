@@ -32,6 +32,57 @@ namespace cave
         return result;
     }
 
+    Matrix Matrix::rowSums()
+    {
+        Matrix result(_rows, 1);
+
+        int index = 0;
+
+        for (int row = 0; row < _rows; ++row)
+        {
+            for (int col = 0; col < _cols; ++col)
+            {
+                result._v[row] += _v[index++];
+            }
+        }
+
+        return result;
+    }
+
+    Matrix Matrix::colSums()
+    {
+         Matrix result(1, _cols);
+
+        int index = 0;
+
+        for (int row = 0; row < _rows; ++row)
+        {
+            for (int col = 0; col < _cols; ++col)
+            {
+                result._v[col] += _v[index++];
+            }
+        }
+
+        return result;
+    }
+
+    Matrix Matrix::rowMeans()
+    {
+         Matrix result(_rows, 1);
+
+        int index = 0;
+
+        for (int row = 0; row < _rows; ++row)
+        {
+            for (int col = 0; col < _cols; ++col)
+            {
+                result._v[row] += _v[index++]/_cols;
+            }
+        }
+
+        return result;
+    }
+
     /*
      * Arithmetical operators
      */

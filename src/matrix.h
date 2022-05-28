@@ -32,6 +32,10 @@ namespace cave
 
         Matrix transpose();
 
+        Matrix rowSums();
+        Matrix colSums();
+        Matrix rowMeans();
+
         /*
          * Arithmetical operators
          */
