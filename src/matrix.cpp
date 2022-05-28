@@ -15,6 +15,23 @@ namespace cave
         }
     }
 
+    Matrix Matrix::transpose()
+    {
+        Matrix result(_cols, _rows);
+
+        int index = 0;
+
+        for (int row = 0; row < _rows; ++row)
+        {
+            for (int col = 0; col < _cols; ++col)
+            {
+                result._v[col * _rows + row] = _v[index++];
+            }
+        }
+
+        return result;
+    }
+
     /*
      * Arithmetical operators
      */
@@ -32,11 +49,11 @@ namespace cave
 
         Matrix result(m1._rows, m2._cols);
 
-        for(int row = 0; row < result._rows; ++row)
+        for (int row = 0; row < result._rows; ++row)
         {
-            for(int col = 0; col < result._cols; ++col)
+            for (int col = 0; col < result._cols; ++col)
             {
-                for(int n = 0; n < m1._cols; ++n)
+                for (int n = 0; n < m1._cols; ++n)
                 {
                     result._v[row * result._cols + col] += m2._v[col + n * m2._cols] * m1._v[row * m1._cols + n];
                 }

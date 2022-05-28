@@ -30,6 +30,8 @@ namespace cave
 
         friend std::ostream &operator<<(std::ostream &out, cave::Matrix m);
 
+        Matrix transpose();
+
         /*
          * Arithmetical operators
          */
