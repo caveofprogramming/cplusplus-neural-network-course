@@ -10,10 +10,11 @@ void backpropDemo();
 
 int main()
 {
-    cave::Matrix m1(2, 3, [](int i){ return i + 1; });
+    cave::Matrix m1(3, 4, [](int i){ return i + 1; });
     
     std::cout << m1 << std::endl;
-    std::cout << m1.colSums() << std::endl;
+
+    std::cout << m1.get(1, 2) << std::endl;
 
 
     return 0;

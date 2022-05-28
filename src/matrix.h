@@ -36,6 +36,12 @@ namespace cave
         Matrix colSums();
         Matrix rowMeans();
 
+        double get(int index);
+        double get(int row, int col);
+        void set(int index, double value);
+        void set(int row, int col, double value);
+
+
         /*
          * Arithmetical operators
          */

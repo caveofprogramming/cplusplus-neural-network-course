@@ -15,6 +15,26 @@ namespace cave
         }
     }
 
+    double Matrix::get(int index)
+    {
+        return _v[index];
+    }
+
+    double Matrix::get(int row, int col)
+    {
+        return _v[row * _cols + col];
+    }
+
+    void Matrix::set(int index, double value)
+    {
+        _v[index] = value;
+    }
+
+    void Matrix::set(int row, int col, double value)
+    {
+        _v[row * _cols + col] = value;
+    }
+
     Matrix Matrix::transpose()
     {
         Matrix result(_cols, _rows);
@@ -51,7 +71,7 @@ namespace cave
 
     Matrix Matrix::colSums()
     {
-         Matrix result(1, _cols);
+        Matrix result(1, _cols);
 
         int index = 0;
 
@@ -68,7 +88,7 @@ namespace cave
 
     Matrix Matrix::rowMeans()
     {
-         Matrix result(_rows, 1);
+        Matrix result(_rows, 1);
 
         int index = 0;
 
@@ -76,7 +96,7 @@ namespace cave
         {
             for (int col = 0; col < _cols; ++col)
             {
-                result._v[row] += _v[index++]/_cols;
+                result._v[row] += _v[index++] / _cols;
             }
         }
 
