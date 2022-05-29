@@ -10,19 +10,23 @@ void backpropDemo();
 
 int main()
 {
-    cave::Matrix input(2, 2, [](int i){ return i; });
-    cave::Matrix weights1(3, 2, [](int i){ return 0.5 * (i - 2); });
-    cave::Matrix weights2(4, 3, [](int i){ return 0.5 * (i - 2); });
-    cave::Matrix weights3(2, 4, [](int i){ return 0.5 * (i - 2); });
+    cave::Matrix input1(2, 1, [](int i){ return 2 * i; });
+    cave::Matrix input2(2, 1, [](int i){ return 3 * (i - 5); });
+    cave::Matrix input3(2, 2, {0, 2, -15, -12}, false);
+
+    cave::Matrix weights(3, 2, [](int i){ return 0.5 * (i - 2); });
     
-    cave::Matrix result = (weights3 * weights2 * weights1) * input;
+    cave::Matrix result1 = weights * input1;
+    cave::Matrix result2 = weights * input2;
+    cave::Matrix result3 = weights * input3;
 
-    cave::Matrix multiplier = (weights3 * weights2 * weights1);
+    std::cout << input1 << std::endl;
+    std::cout << input2 << std::endl;
+    std::cout << input3 << std::endl;
 
-    std::cout << multiplier << std::endl;
-
-    std::cout << result << std::endl;
-    std::cout << multiplier * input << std::endl;
+    std::cout << result1 << std::endl;
+    std::cout << result2 << std::endl;
+    std::cout << result3 << std::endl;
 
 
 
