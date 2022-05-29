@@ -15,4 +15,13 @@ namespace cave
             }
         }
     }
+
+    Matrix MatrixFunctions::meanSquareLoss(const Matrix &actual, const Matrix &expected)
+    {
+        Matrix difference = actual - expected;
+
+        modify(difference, [&](double value){ return value * value/actual._rows; });
+
+        return difference.colSums();
+    }
 }

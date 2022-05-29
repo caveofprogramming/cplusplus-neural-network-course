@@ -7,15 +7,18 @@
 
 int main()
 {
-    cave::Matrix m1(2, 3, [](int i){ return 2 * i; });
+    cave::Matrix actual(2, 3, [](int i){ return i; });
+    cave::Matrix expected(2, 3, [](int i){ return i*i-2; });
 
-    std::cout << m1 << std::endl;
+    std::cout << actual << std::endl;
+    std::cout << expected << std::endl;
+    std::cout << actual - expected << std::endl;
 
-    cave::MatrixFunctions::modify(m1, [](double value){
-        return 2*value;
-    });
+    Matrix losses = cave::MatrixFunctions::meanSquareLoss(actual, expected);
 
-    std::cout << m1 << std::endl;
+    std::cout << losses << std::endl;
+
+    
     
     return 0;
 }

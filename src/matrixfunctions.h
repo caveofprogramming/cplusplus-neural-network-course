@@ -12,5 +12,6 @@ namespace cave
     {
     public:
         static void modify(Matrix &m, std::function<double(double)> mod);
+        static Matrix meanSquareLoss(const Matrix &actual, const Matrix &expected);
     };
 }
