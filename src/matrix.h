@@ -22,6 +22,8 @@ namespace cave
 
         Matrix(int rows, int cols, std::vector<double> values, bool byRowOrder = true); 
 
+        double rows() { return _rows; }
+        double cols() { return _cols; }
         std::string str() const;
 
         Matrix(int rows, int cols, std::function<double(int)> init);
