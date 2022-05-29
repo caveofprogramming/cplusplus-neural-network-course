@@ -1,5 +1,7 @@
 #include "matrixfunctions.h"
 
+#include <random>
+
 namespace cave
 {
     void MatrixFunctions::modify(Matrix &m, std::function<double(double)> mod)
@@ -23,5 +25,15 @@ namespace cave
         modify(difference, [&](double value){ return value * value/actual._rows; });
 
         return difference.colSums();
+    }
+
+    IO MatrixFunctions::generateTestData(int numberItems, int inputSize, int outputSize)
+    {
+        std::default_random_engine generator;
+        std::random_device rd;
+        generator.seed(rd());
+
+        std::uniform_int_distribution<int> uniform(1, outputSize);
+        std::normal_distribution<double> normal(0, 1);
     }
 }
