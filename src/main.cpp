@@ -10,23 +10,40 @@ void backpropDemo();
 
 int main()
 {
-    cave::Matrix input1(2, 1, [](int i){ return 2 * i; });
-    cave::Matrix input2(2, 1, [](int i){ return 3 * (i - 5); });
-    cave::Matrix input3(2, 2, {0, 2, -15, -12}, false);
+    cave::Matrix m1(2, 3, [](int i){ return 2 * i; });
+    cave::Matrix m2(2, 3, [](int i){ return 3 * (i - 5); });
 
-    cave::Matrix weights(3, 2, [](int i){ return 0.5 * (i - 2); });
+    cave::Matrix m11(2, 1, {0, 6});
+    cave::Matrix m12(2, 1, {2, 8});
+    cave::Matrix m13(2, 1, {4, 10});
+
+    cave::Matrix m21(2, 1, {-15, -6});
+    cave::Matrix m22(2, 1, {-12, -3});
+    cave::Matrix m23(2, 1, {-9, 0});
     
-    cave::Matrix result1 = weights * input1;
-    cave::Matrix result2 = weights * input2;
-    cave::Matrix result3 = weights * input3;
+    std::cout << m1 << std::endl;
+    std::cout << m2 << std::endl;
 
-    std::cout << input1 << std::endl;
-    std::cout << input2 << std::endl;
-    std::cout << input3 << std::endl;
+    std::cout << m11 << std::endl;
+    std::cout << m12 << std::endl;
+    std::cout << m13 << std::endl;
 
+    std::cout << m21 << std::endl;
+    std::cout << m22 << std::endl;
+    std::cout << m23 << std::endl;
+
+    auto result = m1 * m2.transpose();
+
+    auto result1 = m11 * m21.transpose();
+    auto result2 = m12 * m22.transpose();
+    auto result3 = m13 * m23.transpose();
+
+    std::cout << result << std::endl;
     std::cout << result1 << std::endl;
     std::cout << result2 << std::endl;
     std::cout << result3 << std::endl;
+
+    std::cout << result1 + result2 + result3 << std::endl;
 
 
 
