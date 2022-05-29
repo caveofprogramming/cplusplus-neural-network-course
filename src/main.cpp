@@ -10,9 +10,11 @@ void backpropDemo();
 
 int main()
 {
-    cave::Matrix m1(2, 3, {1, 2, 3, 4, 5, 6}, false);
+    cave::Matrix m1(2, 2, {1, 2, 3, 4}, false);
+    cave::Matrix m2(2, 2, {2, 3, 5, 6}, false);
     
-    std::cout << m1 << std::endl;
+    std::cout << m1 * m2 << std::endl;
+    std::cout << m2 * m1 << std::endl;
 
     return 0;
 }
