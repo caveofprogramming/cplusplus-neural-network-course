@@ -17,6 +17,8 @@ namespace cave
         std::vector<double> _v;
 
     public:
+        Matrix(){}
+        
         Matrix(int rows, int cols) : _rows(rows), _cols(cols)
         {
             _v.resize(rows * cols);

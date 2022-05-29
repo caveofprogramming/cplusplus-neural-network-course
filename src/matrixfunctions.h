@@ -10,6 +10,12 @@ namespace cave
 {
     struct IO
     {
+        IO(Matrix input, Matrix output)
+        {
+            this->input = input;
+            this->output = output;
+        }
+
         cave::Matrix input;
         cave::Matrix output;
     };

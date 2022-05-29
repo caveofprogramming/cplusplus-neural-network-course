@@ -1,6 +1,7 @@
 #include "matrixfunctions.h"
 
 #include <random>
+#include <cmath>
 
 namespace cave
 {
@@ -8,9 +9,9 @@ namespace cave
     {
         int index = 0;
 
-        for(int row = 0; row < m._rows; ++row)
+        for (int row = 0; row < m._rows; ++row)
         {
-            for(int col = 0; col < m._cols; ++col)
+            for (int col = 0; col < m._cols; ++col)
             {
                 m._v[index] = mod(m._v[index]);
                 ++index;
@@ -22,7 +23,8 @@ namespace cave
     {
         Matrix difference = actual - expected;
 
-        modify(difference, [&](double value){ return value * value/actual._rows; });
+        modify(difference, [&](double value)
+               { return value * value / actual._rows; });
 
         return difference.colSums();
     }
@@ -35,5 +37,37 @@ namespace cave
 
         std::uniform_int_distribution<int> uniform(1, outputSize);
         std::normal_distribution<double> normal(0, 1);
+
+        Matrix input(inputSize, numberItems);
+        Matrix output(outputSize, numberItems);
+
+        for (int item = 0; item < numberItems; ++item)
+        {
+            int radius = uniform(generator);
+
+            output.set(radius - 1, item, 1);
+
+            double sumsquares = 0.0;
+
+            for (int row = 0; row < inputSize; ++row)
+            {
+                double value = normal(generator);
+
+                sumsquares += value * value;
+
+                input.set(row, item, value);
+            }
+
+            double distance = std::sqrt(sumsquares);
+
+            for (int row = 0; row < inputSize; ++row)
+            {
+                double value = input.get(row, item);
+
+                input.set(row, item, radius * value / distance);
+            }
+        }
+
+        return IO(input, output);
     }
 }
