@@ -18,6 +18,7 @@ set(SOURCE_DIR src)
 
 set(SRC_FILES   ${SOURCE_DIR}/main.cpp
                 ${SOURCE_DIR}/matrix.cpp
+                ${SOURCE_DIR}/matrixfunctions.cpp
 )
 
 
