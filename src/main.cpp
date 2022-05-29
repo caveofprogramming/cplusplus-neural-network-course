@@ -5,20 +5,18 @@
 #include "matrixfunctions.h"
 #include "matrix.h"
 
+#include <cmath>
+
 int main()
 {
-    cave::Matrix actual(2, 3, [](int i){ return i; });
-    cave::Matrix expected(2, 3, [](int i){ return i*i-2; });
+    auto testData = cave::MatrixFunctions::generateTestData(5, 2, 3);
 
-    std::cout << actual << std::endl;
-    std::cout << expected << std::endl;
-    std::cout << actual - expected << std::endl;
+    std::cout << testData.input << std::endl;
+    std::cout << testData.output << std::endl;
 
-    Matrix losses = cave::MatrixFunctions::meanSquareLoss(actual, expected);
+    double radius = std::sqrt(std::pow(-1.616188, 2) + std::pow(1.178106, 2));
 
-    std::cout << losses << std::endl;
-
-    
+    std::cout << radius << std::endl;
     
     return 0;
 }
