@@ -73,7 +73,29 @@ namespace cave
 
     Matrix MatrixFunctions::gradient(Matrix &input, std::function<Matrix()> f)
     {
-        Matrix result;
+        Matrix result(input.rows(), input.cols());
+
+        Matrix losses1 = f();
+
+        const double inc = 0.001;
+
+        for(int row = 0; row < input.rows(); ++row)
+        {
+            for(int col = 0; col < input.cols(); ++ col)
+            {
+                const double value = input.get(row, col);
+
+                input.set(row, col, value + inc);
+
+                Matrix losses2 = f();
+
+                double rate = (losses2.get(0, col) - losses1.get(0, col))/inc;
+
+                result.set(row, col, rate);
+
+                input.set(row, col, value);
+            }
+        }
 
         return result;
     }
