@@ -11,8 +11,9 @@ int main()
 {
     const int inputSize = 4;
     const int outputSize = 3;
+    const int numberItems = 1;
 
-    auto testData = cave::MatrixFunctions::generateTestData(5, inputSize, outputSize);
+    auto testData = cave::MatrixFunctions::generateTestData(numberItems, inputSize, outputSize);
 
     std::cout << testData.input << std::endl;
     std::cout << testData.output << std::endl;
@@ -29,11 +30,11 @@ int main()
         return cave::MatrixFunctions::meanSquareLoss(result, expected);
     };
 
-    cave::Matrix grad = cave::MatrixFunctions::gradient(input, network);
+    cave::Matrix grad = cave::MatrixFunctions::gradient(weight, network, 0);
 
-    std::cout << network() << std::endl;
+    std::cout << weight << std::endl;
     std::cout << grad << std::endl;
-    std::cout << weight.transpose() * (2.0/outputSize * (weight * input - expected)) << std::endl;
+    std::cout << (2.0/outputSize * (weight * input - expected)) * input.transpose() << std::endl;
     
     return 0;
 }

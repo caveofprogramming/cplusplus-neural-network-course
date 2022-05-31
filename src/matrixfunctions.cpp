@@ -71,7 +71,7 @@ namespace cave
         return IO(input, output);
     }
 
-    Matrix MatrixFunctions::gradient(Matrix &input, std::function<Matrix()> f)
+    Matrix MatrixFunctions::gradient(Matrix &input, std::function<Matrix()> f, int useLossColumn)
     {
         Matrix result(input.rows(), input.cols());
 
@@ -89,7 +89,14 @@ namespace cave
 
                 Matrix losses2 = f();
 
-                double rate = (losses2.get(0, col) - losses1.get(0, col))/inc;
+                int lossColumn = col;
+
+                if(useLossColumn >= 0)
+                {
+                    lossColumn = useLossColumn;
+                }
+
+                double rate = (losses2.get(0, lossColumn) - losses1.get(0, lossColumn))/inc;
 
                 result.set(row, col, rate);
 
