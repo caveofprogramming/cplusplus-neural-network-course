@@ -9,7 +9,7 @@
 
 int main()
 {
-    const int inputSize = 2;
+    const int inputSize = 3;
     const int outputSize = 3;
 
     auto testData = cave::MatrixFunctions::generateTestData(5, inputSize, outputSize);
@@ -24,15 +24,16 @@ int main()
     cave::Matrix weight(outputSize, inputSize, [](int i){ return 0.01 * i * i + i; });
 
     auto network = [&]{
-        cave::Matrix result = weight * input;
+        //cave::Matrix result = weight * input;
 
-        return cave::MatrixFunctions::meanSquareLoss(result, expected);
+        return cave::MatrixFunctions::meanSquareLoss(input, expected);
     };
 
     cave::Matrix grad = cave::MatrixFunctions::gradient(input, network);
 
     std::cout << network() << std::endl;
     std::cout << grad << std::endl;
+    std::cout << 2.0/inputSize * (input - expected) << std::endl;
     
     return 0;
 }
