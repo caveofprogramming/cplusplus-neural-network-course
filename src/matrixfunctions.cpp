@@ -70,4 +70,11 @@ namespace cave
 
         return IO(input, output);
     }
+
+    Matrix MatrixFunctions::gradient(Matrix &input, std::function<Matrix()> f)
+    {
+        Matrix result;
+
+        return result;
+    }
 }

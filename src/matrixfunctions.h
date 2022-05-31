@@ -26,5 +26,6 @@ namespace cave
         static void modify(Matrix &m, std::function<double(double)> mod);
         static Matrix meanSquareLoss(const Matrix &actual, const Matrix &expected);
         static IO generateTestData(int numberItems, int inputSize, int outputSize);
+        static Matrix gradient(Matrix &input, std::function<Matrix()> f);
     };
 }
