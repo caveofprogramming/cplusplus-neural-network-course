@@ -5,6 +5,30 @@
 
 namespace cave
 {
+
+    Matrix MatrixFunctions::greatestRowIndex(const Matrix &input)
+    {
+        Matrix result(1, input.cols());
+
+        for(int col = 0; col < input.cols(); ++col)
+        {
+            double greatest = 0.0;
+
+            for(int row = 0; row < input.rows(); ++row)
+            {
+                double value = input.get(row, col);
+
+                if(value > greatest)
+                {
+                    result._v[col] = row;
+                    greatest = value;
+                }
+            }
+        }
+
+        return result;
+    }
+
     Matrix MatrixFunctions::softmax(const Matrix &input)
     {
         Matrix result(input.rows(), input.cols());
@@ -17,11 +41,11 @@ namespace cave
         Matrix colSums = result.colSums();
 
         int index = 0;
-        for(int row = 0; row < result.rows(); ++row)
+        for (int row = 0; row < result.rows(); ++row)
         {
-            for(int col = 0; col < result.cols(); ++col)
+            for (int col = 0; col < result.cols(); ++col)
             {
-                result._v[index] = result._v[index]/colSums._v[col];
+                result._v[index] = result._v[index] / colSums._v[col];
 
                 ++index;
             }

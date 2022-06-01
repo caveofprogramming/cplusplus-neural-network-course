@@ -11,14 +11,16 @@ int main()
 {
     const int inputSize = 4;
     const int outputSize = 3;
-    const int numberItems = 2;
+    const int numberItems = 8;
 
     auto testData = cave::MatrixFunctions::generateTestData(numberItems, inputSize, outputSize);
 
     std::cout << testData.input << std::endl;
     std::cout << testData.output << std::endl;
-    std::cout << cave::MatrixFunctions::softmax(testData.input) << std::endl;
-    std::cout << cave::MatrixFunctions::softmax(testData.input).colSums() << std::endl;
+
+    Matrix softmaxOutput = cave::MatrixFunctions::softmax(testData.input);
+    std::cout << softmaxOutput << std::endl;
+    std::cout << cave::MatrixFunctions::greatestRowIndex(softmaxOutput) << std::endl;
 
     cave::Matrix &input = testData.input;
     cave::Matrix &expected = testData.output;
