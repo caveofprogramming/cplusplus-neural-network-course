@@ -28,5 +28,6 @@ namespace cave
         static IO generateTestData(int numberItems, int inputSize, int outputSize);
         static Matrix gradient(Matrix &input, std::function<Matrix()> f, int useLossColumn = -1);
         static Matrix relu(const Matrix &input);
+        static Matrix softmax(const Matrix &input);
     };
 }

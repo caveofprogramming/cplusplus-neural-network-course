@@ -5,15 +5,40 @@
 
 namespace cave
 {
+    Matrix MatrixFunctions::softmax(const Matrix &input)
+    {
+        Matrix result(input.rows(), input.cols());
+
+        for (int i = 0; i < input._v.size(); ++i)
+        {
+            result._v[i] = std::exp(input._v[i]);
+        }
+
+        Matrix colSums = result.colSums();
+
+        int index = 0;
+        for(int row = 0; row < result.rows(); ++row)
+        {
+            for(int col = 0; col < result.cols(); ++col)
+            {
+                result._v[index] = result._v[index]/colSums._v[col];
+
+                ++index;
+            }
+        }
+
+        return result;
+    }
+
     Matrix MatrixFunctions::relu(const Matrix &input)
     {
         Matrix result(input.rows(), input.cols());
 
-        for(int i = 0; i < input._v.size(); ++i)
+        for (int i = 0; i < input._v.size(); ++i)
         {
             double value = input._v[i];
 
-            if(value > 0)
+            if (value > 0)
             {
                 result._v[i] = value;
             }
