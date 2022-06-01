@@ -17,6 +17,7 @@ int main()
 
     std::cout << testData.input << std::endl;
     std::cout << testData.output << std::endl;
+    std::cout << cave::MatrixFunctions::relu(testData.input) << std::endl;
 
     cave::Matrix &input = testData.input;
     cave::Matrix &expected = testData.output;

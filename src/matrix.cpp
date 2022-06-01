@@ -32,12 +32,12 @@ namespace cave
         }
     }
 
-    double Matrix::get(int index)
+    double Matrix::get(int index) const
     {
         return _v[index];
     }
 
-    double Matrix::get(int row, int col)
+    double Matrix::get(int row, int col) const
     {
         return _v[row * _cols + col];
     }

@@ -5,6 +5,23 @@
 
 namespace cave
 {
+    Matrix MatrixFunctions::relu(const Matrix &input)
+    {
+        Matrix result(input.rows(), input.cols());
+
+        for(int i = 0; i < input._v.size(); ++i)
+        {
+            double value = input._v[i];
+
+            if(value > 0)
+            {
+                result._v[i] = value;
+            }
+        }
+
+        return result;
+    }
+
     void MatrixFunctions::modify(Matrix &m, std::function<double(double)> mod)
     {
         int index = 0;
@@ -79,9 +96,9 @@ namespace cave
 
         const double inc = 0.001;
 
-        for(int row = 0; row < input.rows(); ++row)
+        for (int row = 0; row < input.rows(); ++row)
         {
-            for(int col = 0; col < input.cols(); ++ col)
+            for (int col = 0; col < input.cols(); ++col)
             {
                 const double value = input.get(row, col);
 
@@ -91,12 +108,12 @@ namespace cave
 
                 int lossColumn = col;
 
-                if(useLossColumn >= 0)
+                if (useLossColumn >= 0)
                 {
                     lossColumn = useLossColumn;
                 }
 
-                double rate = (losses2.get(0, lossColumn) - losses1.get(0, lossColumn))/inc;
+                double rate = (losses2.get(0, lossColumn) - losses1.get(0, lossColumn)) / inc;
 
                 result.set(row, col, rate);
 

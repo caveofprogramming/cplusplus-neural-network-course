@@ -26,8 +26,8 @@ namespace cave
 
         Matrix(int rows, int cols, std::vector<double> values, bool byRowOrder = true); 
 
-        double rows() { return _rows; }
-        double cols() { return _cols; }
+        double rows() const { return _rows; }
+        double cols() const { return _cols; }
         std::string str() const;
 
         Matrix(int rows, int cols, std::function<double(int)> init);
@@ -40,8 +40,8 @@ namespace cave
         Matrix colSums();
         Matrix rowMeans();
 
-        double get(int index);
-        double get(int row, int col);
+        double get(int index) const;
+        double get(int row, int col) const;
         void set(int index, double value);
         void set(int row, int col, double value);
 
