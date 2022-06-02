@@ -5,20 +5,37 @@
 
 namespace cave
 {
+    Matrix MatrixFunctions::crossEntropyLoss(const Matrix &actual, const Matrix &expected)
+    {
+        Matrix result(1, actual.cols());
+
+        Matrix greatestRows = greatestRowIndex(expected);
+
+        for(int col = 0; col < actual.cols(); ++col)
+        {
+            int row = greatestRows._v[col];
+
+            double value = actual.get(row, col);
+
+            result._v[col] = -std::log(value);
+        }
+
+        return result;
+    }
 
     Matrix MatrixFunctions::greatestRowIndex(const Matrix &input)
     {
         Matrix result(1, input.cols());
 
-        for(int col = 0; col < input.cols(); ++col)
+        for (int col = 0; col < input.cols(); ++col)
         {
             double greatest = 0.0;
 
-            for(int row = 0; row < input.rows(); ++row)
+            for (int row = 0; row < input.rows(); ++row)
             {
                 double value = input.get(row, col);
 
-                if(value > greatest)
+                if (value > greatest)
                 {
                     result._v[col] = row;
                     greatest = value;
