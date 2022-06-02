@@ -10,37 +10,32 @@
 int main()
 {
     const int inputSize = 4;
-    const int outputSize = 3;
+    const int outputSize = 4;
     const int numberItems = 8;
 
     auto testData = cave::MatrixFunctions::generateTestData(numberItems, inputSize, outputSize);
 
-    std::cout << testData.input << std::endl;
-    std::cout << testData.output << std::endl;
-
-    Matrix softmaxOutput = cave::MatrixFunctions::softmax(testData.input);
-    std::cout << softmaxOutput << std::endl;
-    std::cout << cave::MatrixFunctions::greatestRowIndex(softmaxOutput) << std::endl;
-
     cave::Matrix &input = testData.input;
     cave::Matrix &expected = testData.output;
 
-    cave::Matrix weight(outputSize, inputSize, [](int i)
-                        { return 0.01 * i * i + i; });
+    std::cout << input << std::endl;
+    std::cout << expected << std::endl;
+
+    Matrix softmaxOutput = cave::MatrixFunctions::softmax(input);
+    std::cout << softmaxOutput << std::endl;
+    std::cout << cave::MatrixFunctions::crossEntropyLoss(softmaxOutput, expected) << std::endl;
 
     auto network = [&]
     {
-        cave::Matrix result = weight * input;
-
-        return cave::MatrixFunctions::meanSquareLoss(result, expected);
+        Matrix softmaxOutput = cave::MatrixFunctions::softmax(input);
+        return cave::MatrixFunctions::crossEntropyLoss(softmaxOutput, expected);
     };
 
-    cave::Matrix grad1 = cave::MatrixFunctions::gradient(weight, network, 0);
-    cave::Matrix grad2 = cave::MatrixFunctions::gradient(weight, network, 1);
+    cave::Matrix grad = cave::MatrixFunctions::gradient(input, network);
 
-    std::cout << weight << std::endl;
-    std::cout << grad1 + grad2 << std::endl;
-    std::cout << (2.0 / outputSize * (weight * input - expected)) * input.transpose() << std::endl;
+    std::cout << grad << std::endl;
+
+    std::cout << softmaxOutput - expected << std::endl;
 
     return 0;
 }
