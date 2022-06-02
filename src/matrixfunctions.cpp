@@ -5,6 +5,28 @@
 
 namespace cave
 {
+    std::vector<bool> MatrixFunctions::itemsCorrect(const Matrix &actual, const Matrix &expected)
+    {
+        auto actualIndices = greatestRowIndex(actual);
+        auto expectedIndices = greatestRowIndex(expected);
+
+        std::vector<bool> result;
+
+        for(int col = 0; col < actual.cols(); ++col)
+        {
+            if(std::abs(actualIndices.get(col) - expectedIndices.get(col)) < 0.01)
+            {
+                result.push_back(true);
+            }
+            else
+            {
+                result.push_back(false);
+            }
+        }
+
+        return result;
+    }
+
     Matrix MatrixFunctions::crossEntropyLoss(const Matrix &actual, const Matrix &expected)
     {
         Matrix result(1, actual.cols());

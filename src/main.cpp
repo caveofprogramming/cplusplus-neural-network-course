@@ -21,6 +21,15 @@ int main()
     std::cout << input << std::endl;
     std::cout << expected << std::endl;
 
+    auto correct = cave::MatrixFunctions::itemsCorrect(input, expected);
+
+    for(auto b: correct)
+    {
+        std::cout << b;
+    }
+
+    std::cout << std::endl;
+
     Matrix softmaxOutput = cave::MatrixFunctions::softmax(input);
     std::cout << softmaxOutput << std::endl;
     std::cout << cave::MatrixFunctions::crossEntropyLoss(softmaxOutput, expected) << std::endl;
