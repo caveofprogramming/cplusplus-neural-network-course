@@ -5,6 +5,23 @@
 
 namespace cave
 {
+    int MatrixFunctions::numberCorrect(const Matrix &actual, const Matrix &expected)
+    {
+        auto correct = itemsCorrect(actual, expected);
+
+        int totalTrue = 0;
+
+        for(auto b: correct)
+        {
+            if(b)
+            {
+                ++totalTrue;
+            }
+        }
+
+        return totalTrue;
+    }
+
     std::vector<bool> MatrixFunctions::itemsCorrect(const Matrix &actual, const Matrix &expected)
     {
         auto actualIndices = greatestRowIndex(actual);

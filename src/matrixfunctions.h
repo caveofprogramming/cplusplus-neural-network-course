@@ -28,6 +28,7 @@ namespace cave
         static Matrix meanSquareLoss(const Matrix &actual, const Matrix &expected);
         static Matrix crossEntropyLoss(const Matrix &actual, const Matrix &expected);
         static std::vector<bool> itemsCorrect(const Matrix &actual, const Matrix &expected);
+        static int numberCorrect(const Matrix &actual, const Matrix &expected);
         static IO generateTestData(int numberItems, int inputSize, int outputSize);
         static Matrix gradient(Matrix &input, std::function<Matrix()> f, int useLossColumn = -1);
         static Matrix relu(const Matrix &input);

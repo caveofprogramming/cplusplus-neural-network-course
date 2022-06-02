@@ -30,6 +30,8 @@ int main()
 
     std::cout << std::endl;
 
+    std::cout << "Number correct: " << cave::MatrixFunctions::numberCorrect(input, expected) << std::endl;
+
     Matrix softmaxOutput = cave::MatrixFunctions::softmax(input);
     std::cout << softmaxOutput << std::endl;
     std::cout << cave::MatrixFunctions::crossEntropyLoss(softmaxOutput, expected) << std::endl;
