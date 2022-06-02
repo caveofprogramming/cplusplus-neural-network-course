@@ -4,6 +4,7 @@
 #include <cmath>
 #include "matrixfunctions.h"
 #include "matrix.h"
+#include "neuralnetwork.h"
 
 #include <cmath>
 
