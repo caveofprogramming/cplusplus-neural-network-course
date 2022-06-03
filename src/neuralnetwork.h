@@ -31,6 +31,7 @@ namespace cave
         double _scaleWeights{0.2};
 
     public:
+        void setScaleWeights(double scale) { _scaleWeights = scale; }
         void add(Transform transform, int rows = 0, int cols = 0);
         friend std::ostream &operator<<(std::ostream &out, NeuralNetwork &nn);
     };

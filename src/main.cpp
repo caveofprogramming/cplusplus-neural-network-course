@@ -8,46 +8,26 @@
 
 #include <cmath>
 
+using namespace cave;
+
 int main()
 {
+    NeuralNetwork nn;
+
     const int inputSize = 4;
-    const int outputSize = 4;
-    const int numberItems = 8;
+    const int outputSize = 5;
 
-    auto testData = cave::MatrixFunctions::generateTestData(numberItems, inputSize, outputSize);
+    nn.setScaleWeights(0.1);
 
-    cave::Matrix &input = testData.input;
-    cave::Matrix &expected = testData.output;
+    nn.add(NeuralNetwork::DENSE, 5, inputSize);
+    nn.add(NeuralNetwork::RELU);
+    nn.add(NeuralNetwork::DENSE, 4);
+    nn.add(NeuralNetwork::RELU);
+    nn.add(NeuralNetwork::DENSE, 3);
+    nn.add(NeuralNetwork::SOFTMAX);
+    nn.add(NeuralNetwork::CROSS_ENTROPY_LOSS);
 
-    std::cout << input << std::endl;
-    std::cout << expected << std::endl;
-
-    auto correct = cave::MatrixFunctions::itemsCorrect(input, expected);
-
-    for(auto b: correct)
-    {
-        std::cout << b;
-    }
-
-    std::cout << std::endl;
-
-    std::cout << "Number correct: " << cave::MatrixFunctions::numberCorrect(input, expected) << std::endl;
-
-    Matrix softmaxOutput = cave::MatrixFunctions::softmax(input);
-    std::cout << softmaxOutput << std::endl;
-    std::cout << cave::MatrixFunctions::crossEntropyLoss(softmaxOutput, expected) << std::endl;
-
-    auto network = [&]
-    {
-        Matrix softmaxOutput = cave::MatrixFunctions::softmax(input);
-        return cave::MatrixFunctions::crossEntropyLoss(softmaxOutput, expected);
-    };
-
-    cave::Matrix grad = cave::MatrixFunctions::gradient(input, network);
-
-    std::cout << grad << std::endl;
-
-    std::cout << softmaxOutput - expected << std::endl;
+    std::cout << nn << std::endl;
 
     return 0;
 }

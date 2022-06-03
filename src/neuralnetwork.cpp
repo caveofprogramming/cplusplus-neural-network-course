@@ -54,7 +54,7 @@ namespace cave
             }
 
             Matrix weight(rows, cols, [&](int){ return normal(generator); });
-            Matrix bias(rows, cols);
+            Matrix bias(rows, 1);
 
             _weights.push_back(weight);
             _biases.push_back(bias);
