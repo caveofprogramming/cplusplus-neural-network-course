@@ -24,6 +24,7 @@ namespace cave
         std::vector<Matrix> _biases;
         std::vector<int> _weightIndices;
         std::vector<Transform> _transforms;
+        double _scaleWeights{0.2};
 
     public:
         void add(Transform transform, int rows = 0, int cols = 0);
