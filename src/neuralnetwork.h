@@ -9,9 +9,23 @@ namespace cave
 {
     class NeuralNetwork
     {
+    public:
+        enum Transform
+        {
+            DENSE,
+            RELU,
+            SOFTMAX,
+            MEAN_SQUARE_LOSS,
+            CROSS_ENTROPY_LOSS,
+        };
+
     private:
         std::vector<Matrix> _weights;
-        std::vector<Matrix> _bias;
+        std::vector<Matrix> _biases;
         std::vector<int> _weightIndices;
+        std::vector<Transform> _transforms;
+
+    public:
+        void add(Transform transform, int rows = 0, int cols = 0);
     };
 }
