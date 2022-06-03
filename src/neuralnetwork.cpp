@@ -4,6 +4,33 @@
 
 namespace cave
 {
+    std::ostream& operator<<(std::ostream &out, NeuralNetwork &nn)
+    {
+        out << "Scale weights: " << nn._scaleWeights << std::endl;
+        out << std::endl;
+
+        int weightIndex = 0;
+
+        for(auto &t: nn._transforms)
+        {
+            out << nn._transformNames[t];
+
+            if(t == nn.DENSE)
+            {
+                Matrix &weight = nn._weights[weightIndex];
+                Matrix &bias = nn._biases[weightIndex];
+
+                out << " " << weight.str() << " " << bias.str();
+
+                weightIndex++;
+            }
+
+            out << std::endl;
+        }
+
+        return out;
+    }
+
     void NeuralNetwork::add(Transform transform, int rows, int cols)
     {
         std::default_random_engine generator;

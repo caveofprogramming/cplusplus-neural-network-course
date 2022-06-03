@@ -1,6 +1,8 @@
 #pragma once
 
 #include <vector>
+#include <iostream>
+#include <string>
 
 #include "matrix.h"
 #include "matrixfunctions.h"
@@ -10,6 +12,8 @@ namespace cave
     class NeuralNetwork
     {
     public:
+        const std::vector<std::string> _transformNames{"DENSE", "RELU", "SOFTMAX", "MEAN_SQUARES_LOSS", "CROSS_ENTROPY_LOSS"};
+
         enum Transform
         {
             DENSE,
@@ -28,5 +32,7 @@ namespace cave
 
     public:
         void add(Transform transform, int rows = 0, int cols = 0);
+        friend std::ostream &operator<<(std::ostream &out, NeuralNetwork &nn);
     };
+
 }
