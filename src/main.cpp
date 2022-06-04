@@ -5,6 +5,7 @@
 #include "matrixfunctions.h"
 #include "matrix.h"
 #include "neuralnetwork.h"
+#include "vector.h"
 
 #include <cmath>
 
@@ -12,6 +13,10 @@ using namespace cave;
 
 int main()
 {
+    Vector v(3);
+
+    std::cout << v << std::endl;
+    return 0;
     NeuralNetwork nn;
 
     const int inputSize = 4;
