@@ -25,6 +25,7 @@ namespace cave
     {
     public:
         static void modify(Matrix &m, std::function<double(double)> mod);
+        static void modify(Matrix &m, std::function<double(int, double)> mod);
         static Matrix meanSquareLoss(const Matrix &actual, const Matrix &expected);
         static Matrix crossEntropyLoss(const Matrix &actual, const Matrix &expected);
         static std::vector<bool> itemsCorrect(const Matrix &actual, const Matrix &expected);
