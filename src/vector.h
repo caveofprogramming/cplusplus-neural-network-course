@@ -10,5 +10,6 @@ namespace cave
     public:
         Vector(int rows): Matrix(rows, 1){};
         Vector(int rows, std::vector<double> values): Matrix(rows, 1, values){};
+        friend void operator+=(Matrix &m, Vector &v);
     };
 }

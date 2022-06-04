@@ -13,9 +13,14 @@ using namespace cave;
 
 int main()
 {
-    Vector v(3);
+    Vector v(3, {2, 4, 5});
+    Matrix m(3, 2, {1, 2, 3, 4, 5, 6});
 
     std::cout << v << std::endl;
+    std::cout << m << std::endl;
+    m += v;
+    std::cout << m << std::endl;
+
     return 0;
     NeuralNetwork nn;
 
