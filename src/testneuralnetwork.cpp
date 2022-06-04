@@ -1,3 +1,4 @@
+#include <iostream>
 #include "testneuralnetwork.h"
 #include "matrixfunctions.h"
 
@@ -25,6 +26,7 @@ namespace cave
         BatchResult batchResult;
 
         _neuralNetwork.runForwards(batchResult, input);
-        return true;
+
+        return batchResult.io.size() == 7;
     }
 }
