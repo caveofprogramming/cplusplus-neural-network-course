@@ -16,5 +16,7 @@ int main()
 {
     cave::TestNeuralNetwork tests;
 
+    tests.testRunForwards();
+
     return 0;
 }
