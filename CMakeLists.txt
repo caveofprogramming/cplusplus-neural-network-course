@@ -21,6 +21,7 @@ set(SRC_FILES   ${SOURCE_DIR}/main.cpp
                 ${SOURCE_DIR}/matrixfunctions.cpp
                 ${SOURCE_DIR}/neuralnetwork.cpp
                 ${SOURCE_DIR}/vector.cpp
+                ${SOURCE_DIR}/testneuralnetwork.cpp
 )
 
 
