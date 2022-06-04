@@ -4,11 +4,18 @@
 #include <iostream>
 #include <string>
 
+
 #include "matrix.h"
+#include "vector.h"
 #include "matrixfunctions.h"
 
 namespace cave
 {
+    struct BatchResult
+    {
+        std::vector<Matrix> io;
+    };
+
     class NeuralNetwork
     {
     public:
@@ -25,13 +32,14 @@ namespace cave
 
     private:
         std::vector<Matrix> _weights;
-        std::vector<Matrix> _biases;
+        std::vector<Vector> _biases;
         std::vector<int> _weightIndices;
         std::vector<Transform> _transforms;
         double _scaleWeights{0.2};
 
     public:
         void setScaleWeights(double scale) { _scaleWeights = scale; }
+        void runForwards(BatchResult &result, Matrix &input);
         void add(Transform transform, int rows = 0, int cols = 0);
         friend std::ostream &operator<<(std::ostream &out, NeuralNetwork &nn);
     };
