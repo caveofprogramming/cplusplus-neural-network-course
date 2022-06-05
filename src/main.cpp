@@ -16,7 +16,7 @@ int main()
 {
     cave::TestNeuralNetwork tests;
 
-    auto result = tests.testRunForwards();
+    auto result = tests.testRunBackwards();
     std::cout << result << std::endl;
 
     return 0;

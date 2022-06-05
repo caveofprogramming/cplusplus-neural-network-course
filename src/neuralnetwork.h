@@ -40,6 +40,7 @@ namespace cave
     public:
         void setScaleWeights(double scale) { _scaleWeights = scale; }
         void runForwards(BatchResult &result, Matrix &input);
+        void runBackwards(BatchResult &result, Matrix &expected);
         void add(Transform transform, int rows = 0, int cols = 0);
         friend std::ostream &operator<<(std::ostream &out, NeuralNetwork &nn);
     };

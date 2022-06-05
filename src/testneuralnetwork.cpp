@@ -29,4 +29,19 @@ namespace cave
 
         return batchResult.io.size() == 7;
     }
+
+    bool TestNeuralNetwork::testRunBackwards()
+    {
+        auto testData = MatrixFunctions::generateTestData(_numberItems, _inputSize, _outputSize);
+
+        Matrix &input = testData.input;
+        Matrix &expected = testData.output;
+
+        BatchResult batchResult;
+
+        _neuralNetwork.runForwards(batchResult, input);
+        _neuralNetwork.runBackwards(batchResult, expected);
+
+        return true;
+    }
 }

@@ -14,5 +14,6 @@ namespace cave
     public:
         TestNeuralNetwork();
         bool testRunForwards();
+        bool testRunBackwards();
     };
 }

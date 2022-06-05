@@ -42,6 +42,21 @@ namespace cave
         }
     }
 
+    void NeuralNetwork::runBackwards(BatchResult &result, Matrix &expected)
+    {
+        for(int i = _transforms.size() - 2; i >= 0; --i)
+        {
+            Transform transform = _transforms[i];
+            Matrix &input = result.io[i];
+            Matrix &output = result.io[i + 1];
+
+            std::cout << _transformNames[transform] << std::endl;
+            std::cout << input << std::endl;
+            std::cout << output << std::endl;
+            std::cout << "\n" << std::endl;
+        }
+    }
+
     std::ostream &operator<<(std::ostream &out, NeuralNetwork &nn)
     {
         out << "Scale weights: " << nn._scaleWeights << std::endl;
