@@ -12,7 +12,7 @@ namespace cave
         _neuralNetwork.add(NeuralNetwork::RELU);
         _neuralNetwork.add(NeuralNetwork::DENSE, 4);
         _neuralNetwork.add(NeuralNetwork::RELU);
-        _neuralNetwork.add(NeuralNetwork::DENSE, 3);
+        _neuralNetwork.add(NeuralNetwork::DENSE, _outputSize);
         _neuralNetwork.add(NeuralNetwork::SOFTMAX);
         _neuralNetwork.add(NeuralNetwork::CROSS_ENTROPY_LOSS);
     }
@@ -41,6 +41,10 @@ namespace cave
 
         _neuralNetwork.runForwards(batchResult, input);
         _neuralNetwork.runBackwards(batchResult, expected);
+
+        Matrix &calculatedError = batchResult.error.front();
+
+        std::cout << calculatedError << std::endl;
 
         return true;
     }

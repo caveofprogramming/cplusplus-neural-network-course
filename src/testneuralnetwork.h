@@ -8,7 +8,7 @@ namespace cave
     {
     private:
         int _inputSize{6};
-        int _outputSize{5};
+        int _outputSize{6};
         int _numberItems{4};
         cave::NeuralNetwork _neuralNetwork;
     public:

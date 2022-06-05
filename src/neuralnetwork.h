@@ -3,6 +3,7 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <deque>
 
 
 #include "matrix.h"
@@ -14,6 +15,7 @@ namespace cave
     struct BatchResult
     {
         std::vector<Matrix> io;
+        std::deque<Matrix> error;
     };
 
     class NeuralNetwork
