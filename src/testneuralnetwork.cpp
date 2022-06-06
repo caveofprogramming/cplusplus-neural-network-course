@@ -9,9 +9,9 @@ namespace cave
         _neuralNetwork.setScaleWeights(0.1);
 
         _neuralNetwork.add(NeuralNetwork::DENSE, 5, _inputSize);
-        //_neuralNetwork.add(NeuralNetwork::RELU);
+        _neuralNetwork.add(NeuralNetwork::RELU);
         _neuralNetwork.add(NeuralNetwork::DENSE, 4);
-        //_neuralNetwork.add(NeuralNetwork::RELU);
+        _neuralNetwork.add(NeuralNetwork::RELU);
         _neuralNetwork.add(NeuralNetwork::DENSE, _outputSize);
         _neuralNetwork.add(NeuralNetwork::SOFTMAX);
         _neuralNetwork.add(NeuralNetwork::CROSS_ENTROPY_LOSS);

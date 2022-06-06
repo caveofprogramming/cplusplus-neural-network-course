@@ -76,6 +76,15 @@ namespace cave
                 break;
 
             case RELU:
+
+                error = MatrixFunctions::transform(error, [&](int index, double value){
+                    if(input.get(index) < 0)
+                    {
+                        return 0.0;
+                    }
+
+                    return value;
+                });
                 break;
 
             case SOFTMAX:
@@ -84,7 +93,7 @@ namespace cave
                     throw std::logic_error("Softmax can only be used for output layer.");
                 }
 
-                error = result.io.back() - expected;
+                error = output - expected;
                 usedSoftmax = true;
                 break;
 

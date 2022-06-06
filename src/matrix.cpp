@@ -233,7 +233,7 @@ namespace cave
             return false;
         }
 
-        const double tolerance = 0.01;
+        const double tolerance = 0.0001;
 
         for(int i = 0; i < m1._v.size(); ++i)
         {
