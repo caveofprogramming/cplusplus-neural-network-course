@@ -57,6 +57,6 @@ namespace cave
 
         std::cout << approximatedError << std::endl;
 
-        return true;
+        return calculatedError == approximatedError;
     }
 }

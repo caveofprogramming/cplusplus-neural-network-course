@@ -16,10 +16,10 @@ namespace cave
         }
     }
 
-    Matrix::Matrix(int rows, int cols, std::vector<double> values, bool byRowOrder) 
+    Matrix::Matrix(int rows, int cols, std::vector<double> values, bool byRowOrder)
         : _rows(rows), _cols(cols)
     {
-        if(byRowOrder)
+        if (byRowOrder)
         {
             _v = values;
         }
@@ -225,6 +225,26 @@ namespace cave
     }
 
     /*********************************/
+
+    bool operator==(const Matrix &m1, const Matrix &m2)
+    {
+        if(m1.rows() != m2.rows() || m1.cols() != m2.cols())
+        {
+            return false;
+        }
+
+        const double tolerance = 0.01;
+
+        for(int i = 0; i < m1._v.size(); ++i)
+        {
+            if(std::abs(m1._v[i] - m2._v[i]) > tolerance)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
     std::string Matrix::str() const
     {
