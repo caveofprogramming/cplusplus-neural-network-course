@@ -44,21 +44,51 @@ namespace cave
 
     void NeuralNetwork::runBackwards(BatchResult &result, Matrix &expected)
     {
-        Matrix error = result.io.back() - expected;
+        auto transformsIt = _transforms.rbegin();
 
-        result.error.push_front(error);
+        if (*transformsIt != CROSS_ENTROPY_LOSS || *(++transformsIt) != SOFTMAX)
+        {
+            throw std::logic_error("Last activation must be softmax and loss must be cross entropy.");
+        }
 
+        Matrix error;
 
-        for(int i = _transforms.size() - 2; i >= 0; --i)
+        bool usedSoftmax = false;
+
+        for (int i = _transforms.size() - 2; i >= 0; --i)
         {
             Transform transform = _transforms[i];
             Matrix &input = result.io[i];
             Matrix &output = result.io[i + 1];
 
-            //std::cout << _transformNames[transform] << std::endl;
-            //std::cout << input << std::endl;
-            //std::cout << output << std::endl;
-            //std::cout << "\n" << std::endl;
+            switch (transform)
+            {
+            case DENSE:
+                break;
+
+            case RELU:
+                break;
+
+            case SOFTMAX:
+                if(usedSoftmax)
+                {
+                    throw std::logic_error("Softmax can only be used for output layer.");
+                }
+
+                error = result.io.back() - expected;
+                usedSoftmax = true;
+                break;
+
+            case CROSS_ENTROPY_LOSS:
+                continue;
+                break;
+
+            case MEAN_SQUARE_LOSS:
+                continue;
+                break;
+            }
+
+            result.error.push_front(error);
         }
     }
 
