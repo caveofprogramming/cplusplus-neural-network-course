@@ -213,7 +213,7 @@ namespace cave
 
         Matrix losses1 = f();
 
-        const double inc = 0.001;
+        const double inc = 0.00001;
 
         for (int row = 0; row < input.rows(); ++row)
         {

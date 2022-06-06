@@ -8,11 +8,13 @@ namespace cave
     {
         _neuralNetwork.setScaleWeights(0.1);
 
+        /*
         _neuralNetwork.add(NeuralNetwork::DENSE, 5, _inputSize);
         _neuralNetwork.add(NeuralNetwork::RELU);
         _neuralNetwork.add(NeuralNetwork::DENSE, 4);
         _neuralNetwork.add(NeuralNetwork::RELU);
         _neuralNetwork.add(NeuralNetwork::DENSE, _outputSize);
+        */
         _neuralNetwork.add(NeuralNetwork::SOFTMAX);
         _neuralNetwork.add(NeuralNetwork::CROSS_ENTROPY_LOSS);
     }
@@ -45,6 +47,15 @@ namespace cave
         Matrix &calculatedError = batchResult.error.front();
 
         std::cout << calculatedError << std::endl;
+
+        auto approximatedError = MatrixFunctions::gradient(input, [&]{
+            BatchResult result;
+            _neuralNetwork.runForwards(result, input);
+
+            return MatrixFunctions::crossEntropyLoss(result.io.back(), expected);
+        });
+
+        std::cout << approximatedError << std::endl;
 
         return true;
     }
