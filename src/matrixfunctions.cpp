@@ -155,6 +155,18 @@ namespace cave
         }
     }
 
+    Matrix  MatrixFunctions::transform(Matrix &m, std::function<double(int, double)> mod)
+    {
+        Matrix result(m._rows, m._cols);
+
+        for(int i = 0; i < m._v.size(); ++i)
+        {
+            result._v[i] = mod(i, m._v[i]);
+        }
+
+        return result;
+    }
+
     Matrix MatrixFunctions::meanSquareLoss(const Matrix &actual, const Matrix &expected)
     {
         Matrix difference = actual - expected;
