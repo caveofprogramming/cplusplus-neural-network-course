@@ -55,6 +55,8 @@ namespace cave
 
         bool usedSoftmax = false;
 
+        auto weightIt = _weights.rbegin();
+
         for (int i = _transforms.size() - 2; i >= 0; --i)
         {
             Transform transform = _transforms[i];
@@ -64,6 +66,13 @@ namespace cave
             switch (transform)
             {
             case DENSE:
+            {
+                Matrix &weight = *weightIt;
+
+                error = weight.transpose() * error;
+
+                weightIt++;
+                }
                 break;
 
             case RELU:
