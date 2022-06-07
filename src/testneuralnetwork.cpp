@@ -1,4 +1,8 @@
 #include <iostream>
+#include <map>
+#include <string>
+#include <functional>
+
 #include "testneuralnetwork.h"
 #include "matrixfunctions.h"
 
@@ -15,6 +19,29 @@ namespace cave
         _neuralNetwork.add(NeuralNetwork::DENSE, _outputSize);
         _neuralNetwork.add(NeuralNetwork::SOFTMAX);
         _neuralNetwork.add(NeuralNetwork::CROSS_ENTROPY_LOSS);
+    }
+
+    bool TestNeuralNetwork::all()
+    {
+        std::map<std::string, std::function<bool()>> tests{
+            {"RunForwards", std::bind(&TestNeuralNetwork::testRunForwards, this)},
+            {"RunBackwards", std::bind(&TestNeuralNetwork::testRunBackwards, this)},
+            {"Adjust", std::bind(&TestNeuralNetwork::testAdjust, this)},
+        };
+
+        bool result = true;
+
+        for (const auto &[name, function] : tests)
+        {
+            std::cout << "Running " << name << ": ";
+            bool r = function();
+            result &= r;
+            std::cout << (r ? "passed": "failed") << std::endl;
+        }
+
+        std::cout << "\n" << (result ? "All tests passed": "Some tests failed!") << std::endl;
+
+        return result;
     }
 
     bool TestNeuralNetwork::testRunForwards()
@@ -44,17 +71,17 @@ namespace cave
 
         Matrix &calculatedError = batchResult.error.front();
 
-        auto approximatedError = MatrixFunctions::gradient(input, [&]{
+        auto approximatedError = MatrixFunctions::gradient(input, [&]
+                                                           {
             BatchResult result;
             _neuralNetwork.runForwards(result, input);
 
-            return MatrixFunctions::crossEntropyLoss(result.io.back(), expected);
-        });
+            return MatrixFunctions::crossEntropyLoss(result.io.back(), expected); });
 
         return calculatedError == approximatedError;
     }
 
-     bool TestNeuralNetwork::testAdjust()
+    bool TestNeuralNetwork::testAdjust()
     {
         auto testData = MatrixFunctions::generateTestData(_numberItems, _inputSize, _outputSize);
 

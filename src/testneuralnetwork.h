@@ -14,6 +14,7 @@ namespace cave
 
     public:
         TestNeuralNetwork();
+        bool all();
         bool testRunForwards();
         bool testRunBackwards();
         bool testAdjust();
