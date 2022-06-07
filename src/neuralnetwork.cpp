@@ -16,11 +16,18 @@ namespace cave
     {
         BatchResult result;
 
+        result.numberItems = input.cols();
+
         runForwards(result, input);
         runBackwards(result, expected);
         adjust(result, 0.01);
 
-        Matrix losses = MatrixFunctions::crossEntropyLoss(result.io.back(), expected);
+        Matrix &output = result.io.back();
+
+        Matrix losses = MatrixFunctions::crossEntropyLoss(output, expected);
+
+        result.numberCorrect = MatrixFunctions::numberCorrect(output, expected);
+        result.totalLoss = losses.rowSums().get(0);
 
         return result;
     }

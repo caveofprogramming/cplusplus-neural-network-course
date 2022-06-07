@@ -88,19 +88,14 @@ namespace cave
         Matrix &input = testData.input;
         Matrix &expected = testData.output;
 
-        BatchResult result1;
-        _neuralNetwork.runForwards(result1, input);
-        Matrix losses1 = MatrixFunctions::crossEntropyLoss(result1.io.back(), expected);
-        double loss1 = losses1.rowMeans().get(0);
+        Matrix predictions1 = _neuralNetwork.predict(input);
+        double totalLoss1 = MatrixFunctions::crossEntropyLoss(predictions1, expected).rowSums().get(0);
 
-        _neuralNetwork.runBackwards(result1, expected);
-        _neuralNetwork.adjust(result1, 0.01);
+        _neuralNetwork.runBatch(input, expected);
 
-        BatchResult result2;
-        _neuralNetwork.runForwards(result2, input);
-        Matrix losses2 = MatrixFunctions::crossEntropyLoss(result2.io.back(), expected);
-        double loss2 = losses2.rowMeans().get(0);
+        Matrix predictions2 = _neuralNetwork.predict(input);
+        double totalLoss2 = MatrixFunctions::crossEntropyLoss(predictions2, expected).rowSums().get(0);
 
-        return loss1 - loss2 > 0;
+        return totalLoss1 > totalLoss2;
     }
 }

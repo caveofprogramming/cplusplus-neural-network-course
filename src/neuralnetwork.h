@@ -16,6 +16,9 @@ namespace cave
     {
         std::vector<Matrix> io;
         std::deque<Matrix> error;
+        int numberItems{0};
+        int numberCorrect{0};
+        double totalLoss{0};
     };
 
     class NeuralNetwork
