@@ -11,9 +11,11 @@ namespace cave
         int _outputSize{6};
         int _numberItems{4};
         cave::NeuralNetwork _neuralNetwork;
+
     public:
         TestNeuralNetwork();
         bool testRunForwards();
         bool testRunBackwards();
+        bool testAdjust();
     };
 }

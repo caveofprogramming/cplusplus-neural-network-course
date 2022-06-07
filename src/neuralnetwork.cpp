@@ -120,10 +120,10 @@ namespace cave
             Matrix &input = result.io[weightIndex];
             Matrix &error = result.error[weightIndex + 1];
 
-            std::cout << "weight: " << i << std::endl;
-            std::cout << "weight: " << weight << std::endl;
-            std::cout << "input: " << input << std::endl;
-            std::cout << "error: " << error << std::endl;
+            std::cout << "weight: \n" << i << std::endl;
+            std::cout << "weight: \n" << weight << std::endl;
+            std::cout << "input: \n" << input << std::endl;
+            std::cout << "error: \n" << error << std::endl;
         }
     }
 

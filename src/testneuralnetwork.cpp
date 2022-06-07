@@ -53,4 +53,21 @@ namespace cave
 
         return calculatedError == approximatedError;
     }
+
+     bool TestNeuralNetwork::testAdjust()
+    {
+        auto testData = MatrixFunctions::generateTestData(_numberItems, _inputSize, _outputSize);
+
+        Matrix &input = testData.input;
+        Matrix &expected = testData.output;
+
+        BatchResult batchResult;
+
+        _neuralNetwork.runForwards(batchResult, input);
+        _neuralNetwork.runBackwards(batchResult, expected);
+
+        _neuralNetwork.adjust(batchResult, 0.01);
+
+        return true;
+    }
 }
