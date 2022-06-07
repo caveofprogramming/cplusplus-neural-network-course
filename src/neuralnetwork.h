@@ -40,6 +40,7 @@ namespace cave
         double _scaleWeights{0.2};
 
     public:
+        Matrix predict(Matrix &input);
         BatchResult runBatch(Matrix &input, Matrix &expected);
         void setScaleWeights(double scale) { _scaleWeights = scale; }
         void runForwards(BatchResult &result, Matrix &input);

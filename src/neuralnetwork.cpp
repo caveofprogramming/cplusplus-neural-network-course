@@ -5,6 +5,13 @@
 
 namespace cave
 {
+    Matrix NeuralNetwork::predict(Matrix &input)
+    {
+        BatchResult result;
+        runForwards(result, input);
+        return result.io.back();
+    }
+
     BatchResult NeuralNetwork::runBatch(Matrix &input, Matrix &expected)
     {
         BatchResult result;
@@ -14,7 +21,7 @@ namespace cave
         adjust(result, 0.01);
 
         Matrix losses = MatrixFunctions::crossEntropyLoss(result.io.back(), expected);
-      
+
         return result;
     }
 
