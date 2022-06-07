@@ -127,11 +127,6 @@ namespace cave
 
             bias -= learningRate * error.rowMeans();
             weight -= learningRate/input.cols() * (error * input.transpose());
-
-            std::cout << "weight: \n" << i << std::endl;
-            std::cout << "weight: \n" << weight << std::endl;
-            std::cout << "input: \n" << input << std::endl;
-            std::cout << "error: \n" << error << std::endl;
         }
     }
 

@@ -61,13 +61,23 @@ namespace cave
         Matrix &input = testData.input;
         Matrix &expected = testData.output;
 
-        BatchResult batchResult;
+        BatchResult result1;
+        _neuralNetwork.runForwards(result1, input);
+        Matrix losses1 = MatrixFunctions::crossEntropyLoss(result1.io.back(), expected);
+        double loss1 = losses1.rowMeans().get(0);
 
-        _neuralNetwork.runForwards(batchResult, input);
-        _neuralNetwork.runBackwards(batchResult, expected);
+        _neuralNetwork.runBackwards(result1, expected);
+        _neuralNetwork.adjust(result1, 0.01);
 
-        _neuralNetwork.adjust(batchResult, 0.01);
+        BatchResult result2;
+        _neuralNetwork.runForwards(result2, input);
+        Matrix losses2 = MatrixFunctions::crossEntropyLoss(result2.io.back(), expected);
+        double loss2 = losses2.rowMeans().get(0);
 
-        return true;
+        std::cout << "Loss1: " << loss1 << std::endl;
+        std::cout << "Loss2: " << loss2 << std::endl;
+        std::cout << "Difference: " << loss1 - loss2 << std::endl;
+
+        return loss1 - loss2 > 0;
     }
 }
