@@ -40,7 +40,7 @@ namespace cave
         BatchResult batchResult;
 
         _neuralNetwork.runForwards(batchResult, input);
-        _neuralNetwork.runBackwards(batchResult, expected);
+        _neuralNetwork.runBackwards(batchResult, expected, true);
 
         Matrix &calculatedError = batchResult.error.front();
 
@@ -73,10 +73,6 @@ namespace cave
         _neuralNetwork.runForwards(result2, input);
         Matrix losses2 = MatrixFunctions::crossEntropyLoss(result2.io.back(), expected);
         double loss2 = losses2.rowMeans().get(0);
-
-        std::cout << "Loss1: " << loss1 << std::endl;
-        std::cout << "Loss2: " << loss2 << std::endl;
-        std::cout << "Difference: " << loss1 - loss2 << std::endl;
 
         return loss1 - loss2 > 0;
     }

@@ -43,7 +43,7 @@ namespace cave
         }
     }
 
-    void NeuralNetwork::runBackwards(BatchResult &result, Matrix &expected)
+    void NeuralNetwork::runBackwards(BatchResult &result, Matrix &expected, bool bGenerateInputError)
     {
         auto transformsIt = _transforms.rbegin();
 
@@ -57,6 +57,7 @@ namespace cave
         bool usedSoftmax = false;
 
         auto weightIt = _weights.rbegin();
+        int weightIndex = _weights.size() - 1;
 
         for (int i = _transforms.size() - 2; i >= 0; --i)
         {
@@ -67,29 +68,36 @@ namespace cave
             switch (transform)
             {
             case DENSE:
-            {
-                Matrix &weight = *weightIt;
+            
+                if (bGenerateInputError || weightIndex != 0)
+                {
+                    Matrix &weight = *weightIt;
 
-                error = weight.transpose() * error;
+                    error = weight.transpose() * error;
 
-                weightIt++;
+                    weightIt++;
+                    --weightIndex;
+                }
+                else 
+                {
+                    error = Matrix();
                 }
                 break;
 
             case RELU:
 
-                error = MatrixFunctions::transform(error, [&](int index, double value){
+                error = MatrixFunctions::transform(error, [&](int index, double value)
+                                                   {
                     if(input.get(index) < 0)
                     {
                         return 0.0;
                     }
 
-                    return value;
-                });
+                    return value; });
                 break;
 
             case SOFTMAX:
-                if(usedSoftmax)
+                if (usedSoftmax)
                 {
                     throw std::logic_error("Softmax can only be used for output layer.");
                 }
@@ -107,86 +115,86 @@ namespace cave
                 break;
             }
 
-            result.error.push_front(error);
-        }
-    }
-
-    void NeuralNetwork::adjust(BatchResult &result, double learningRate)
-    {
-        for(int i = 0; i < _weights.size(); ++i)
-        {
-            int weightIndex = _weightIndices[i];
-
-            Matrix &weight = _weights[i];
-            Matrix &bias = _biases[i];
-            Matrix &input = result.io[weightIndex];
-            Matrix &error = result.error[weightIndex + 1];
-
-            assert(weight.rows() == error.rows());
-            assert(weight.cols() == input.rows());
-
-            bias -= learningRate * error.rowMeans();
-            weight -= learningRate/input.cols() * (error * input.transpose());
-        }
-    }
-
-    std::ostream &operator<<(std::ostream &out, NeuralNetwork &nn)
-    {
-        out << "Scale weights: " << nn._scaleWeights << std::endl;
-        out << std::endl;
-
-        int weightIndex = 0;
-
-        for (auto &t : nn._transforms)
-        {
-            out << nn._transformNames[t];
-
-            if (t == nn.DENSE)
-            {
-                Matrix &weight = nn._weights[weightIndex];
-                Matrix &bias = nn._biases[weightIndex];
-
-                out << " " << weight.str() << " " << bias.str();
-
-                weightIndex++;
+                result.error.push_front(error);
             }
-
-            out << std::endl;
         }
 
-        return out;
-    }
-
-    void NeuralNetwork::add(Transform transform, int rows, int cols)
-    {
-        std::default_random_engine generator;
-        std::random_device rd;
-        generator.seed(rd());
-
-        std::normal_distribution<double> normal(0, _scaleWeights);
-
-        if (transform == DENSE)
+        void NeuralNetwork::adjust(BatchResult & result, double learningRate)
         {
-            _weightIndices.push_back(_transforms.size());
-
-            if (cols == 0)
+            for (int i = 0; i < _weights.size(); ++i)
             {
-                if (_weights.size() == 0)
+                int weightIndex = _weightIndices[i];
+
+                Matrix &weight = _weights[i];
+                Matrix &bias = _biases[i];
+                Matrix &input = result.io[weightIndex];
+                Matrix &error = result.error[weightIndex + 1];
+
+                assert(weight.rows() == error.rows());
+                assert(weight.cols() == input.rows());
+
+                bias -= learningRate * error.rowMeans();
+                weight -= learningRate / input.cols() * (error * input.transpose());
+            }
+        }
+
+        std::ostream &operator<<(std::ostream &out, NeuralNetwork &nn)
+        {
+            out << "Scale weights: " << nn._scaleWeights << std::endl;
+            out << std::endl;
+
+            int weightIndex = 0;
+
+            for (auto &t : nn._transforms)
+            {
+                out << nn._transformNames[t];
+
+                if (t == nn.DENSE)
                 {
-                    throw std::invalid_argument("Must specify number of columns for initial dense layer.");
+                    Matrix &weight = nn._weights[weightIndex];
+                    Matrix &bias = nn._biases[weightIndex];
+
+                    out << " " << weight.str() << " " << bias.str();
+
+                    weightIndex++;
                 }
 
-                cols = _weights.back().rows();
+                out << std::endl;
             }
 
-            Matrix weight(rows, cols, [&](int)
-                          { return normal(generator); });
-            Vector bias(rows);
-
-            _weights.push_back(weight);
-            _biases.push_back(bias);
+            return out;
         }
 
-        _transforms.push_back(transform);
+        void NeuralNetwork::add(Transform transform, int rows, int cols)
+        {
+            std::default_random_engine generator;
+            std::random_device rd;
+            generator.seed(rd());
+
+            std::normal_distribution<double> normal(0, _scaleWeights);
+
+            if (transform == DENSE)
+            {
+                _weightIndices.push_back(_transforms.size());
+
+                if (cols == 0)
+                {
+                    if (_weights.size() == 0)
+                    {
+                        throw std::invalid_argument("Must specify number of columns for initial dense layer.");
+                    }
+
+                    cols = _weights.back().rows();
+                }
+
+                Matrix weight(rows, cols, [&](int)
+                              { return normal(generator); });
+                Vector bias(rows);
+
+                _weights.push_back(weight);
+                _biases.push_back(bias);
+            }
+
+            _transforms.push_back(transform);
+        }
     }
-}

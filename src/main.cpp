@@ -16,7 +16,7 @@ int main()
 {
     cave::TestNeuralNetwork tests;
 
-    auto result = tests.testAdjust();
+    auto result = tests.testRunBackwards();
     std::cout << (result ? "test passed": "test failed") << std::endl;
 
     return 0;
