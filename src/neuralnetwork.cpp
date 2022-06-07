@@ -110,6 +110,23 @@ namespace cave
         }
     }
 
+    void NeuralNetwork::adjust(BatchResult &result, double learningRate)
+    {
+        for(int i = 0; i < _weights.size(); ++i)
+        {
+            int weightIndex = _weightIndices[i];
+
+            Matrix &weight = _weights[i];
+            Matrix &input = result.io[weightIndex];
+            Matrix &error = result.error[weightIndex + 1];
+
+            std::cout << "weight: " << i << std::endl;
+            std::cout << "weight: " << weight << std::endl;
+            std::cout << "input: " << input << std::endl;
+            std::cout << "error: " << error << std::endl;
+        }
+    }
+
     std::ostream &operator<<(std::ostream &out, NeuralNetwork &nn)
     {
         out << "Scale weights: " << nn._scaleWeights << std::endl;

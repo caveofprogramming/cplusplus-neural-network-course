@@ -44,16 +44,12 @@ namespace cave
 
         Matrix &calculatedError = batchResult.error.front();
 
-        std::cout << calculatedError << std::endl;
-
         auto approximatedError = MatrixFunctions::gradient(input, [&]{
             BatchResult result;
             _neuralNetwork.runForwards(result, input);
 
             return MatrixFunctions::crossEntropyLoss(result.io.back(), expected);
         });
-
-        std::cout << approximatedError << std::endl;
 
         return calculatedError == approximatedError;
     }
