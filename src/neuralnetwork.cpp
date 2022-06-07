@@ -1,6 +1,7 @@
 #include "neuralnetwork.h"
 #include <random>
 #include <stdexcept>
+#include <assert.h>
 
 namespace cave
 {
@@ -117,8 +118,15 @@ namespace cave
             int weightIndex = _weightIndices[i];
 
             Matrix &weight = _weights[i];
+            Matrix &bias = _biases[i];
             Matrix &input = result.io[weightIndex];
             Matrix &error = result.error[weightIndex + 1];
+
+            assert(weight.rows() == error.rows());
+            assert(weight.cols() == input.rows());
+
+            bias -= learningRate * error.rowMeans();
+            weight -= learningRate/input.cols() * (error * input.transpose());
 
             std::cout << "weight: \n" << i << std::endl;
             std::cout << "weight: \n" << weight << std::endl;
